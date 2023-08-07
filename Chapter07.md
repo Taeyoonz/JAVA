@@ -209,6 +209,149 @@
       ```
 ## 4. 제어자(modifier)
   + 제어자란
-    - 클래스, 변수 또는 메서드의 선언부에 함께 사용되어 부가적인 의미를 부여하는 
+    - 클래스, 변수 또는 메서드의 선언부에 함께 사용되어 부가적인 의미를 부여하는 것
     - 접근 제어자 : public, protected, default, private
     - 그 외 : static, final, abstract, native, transient, synchronized, volatile, strictfp
+  + static - 클래스의, 공통적인
+    - static은 '클래스의' 또는 '공통적인' 의미를 가지고 있다
+    - 클래스변수(static멤버변수)는 인스턴스에 관계없이 같은 값을 갖는다 - 하나의 변수를 모든 인스턴스가 공유하기 때문
+    - static이 붙은 멤버변수와 메서드, 초기화 블럭은 인스턴스가 아닌 클래스에 관계된 것이기 때문에 인스턴스를 생성하지 않고도 사용할 수 있다
+    - <table style="height: 153px; margin-left: auto; margin-right: auto;" width="583" cellspacing="3">
+      <tbody>
+      <tr>
+      <td style="width: 194px;">제어자</td>
+      <td style="width: 194px;">대상</td>
+      <td style="width: 194px;">의미</td>
+      </tr>
+      <tr>
+      <td style="width: 194px;" rowspan="5">static</td>
+      <td style="width: 194px;" rowspan="3">멤버변수</td>
+      <td style="width: 194px;">-모든 인스턴스에 공통적으로 사용되는 클래스 변수가 된다.</td>
+      </tr>
+      <tr>
+      <td style="width: 194px;">-클래스 변수는 인스턴스를 생성하지 않고도 사용 가능하다.</td>
+      </tr>
+      <tr>
+      <td style="width: 194px;">-클래스가 메모리에 로드될 때 생성된다.</td>
+      </tr>
+      <tr>
+      <td style="width: 194px;" rowspan="2">메서드</td>
+      <td style="width: 194px;">-인스턴스를 생성하지 않고도 호출이 가능한 static메서드가 된다.</td>
+      </tr>
+      <tr>
+      <td style="width: 194px;">-static메서드 내에서는 인스턴스멤버들을 직접 사용할 수 없다.</td>
+      </tr>
+      </tbody>
+      </table>
+  + final - 마지막의, 변경될 수 없는
+    - final은 '마지막의' 또는 '변경될 수 없는'의 의미를 가지고 있다
+    - <table style="height: 153px; margin-left: auto; margin-right: auto;" width="583" cellspacing="3">
+      <tbody>
+      <tr style="height: 23px;">
+      <td style="width: 194px; height: 23px;">제어자</td>
+      <td style="width: 194px; height: 23px;">대상</td>
+      <td style="width: 194px; height: 23px;">의미</td>
+      </tr>
+      <tr style="height: 43px;">
+      <td style="width: 194px; height: 255px;" rowspan="4">final</td>
+      <td style="width: 194px; height: 129px;">클래스</td>
+      <td style="width: 194px; height: 43px;">
+      <p>변경될 수 없는 클래스, 확장될 수 없는 클래스가 된다.</p>
+      <p>그래서 final로 지정된 클래스는 다른 클래스의 조상이 될 수 없다.</p>
+      </td>
+      </tr>
+      <tr style="height: 63px;">
+      <td style="width: 194px; height: 126px;">메서드</td>
+      <td style="width: 194px; height: 63px;">변경될 수 없는 메서드, final로 지정된 메서드는 오버라이딩을 통해 재정의 될 수 없다.</td>
+      </tr>
+      <tr style="height: 63px;">
+      <td style="width: 194px; height: 126px;">멤버변수</td>
+      <td style="width: 194px; height: 63px;" rowspan="2">변수 앞에 final이 붙으면, 값을 변경할 수 없는 상수가 된다.</td>
+      </tr>
+      <tr style="height: 63px;">
+      <td style="width: 194px; height: 126px;">지역변수</td>
+      </tr>
+      </tbody>
+      </table>
+    - 생성자를 이용한 final멤버 변수의 초기화
+      ```java
+      class Card {
+        final int NUMBER;
+        final String KIND;
+        static int width = 100;
+        static int height = 250;
+
+        Card(String kind, int num) {
+          KIND = kind;
+          NUMBER = num;
+        }
+        Card() {
+          this("HEART", 1);
+        }
+        public String toString() {
+          return KIND + " " + NUMBER;
+        }
+      }
+
+      class FinalCardTest {
+        public static void main(String args[]) {
+          Card c = new Card("HEART", 10);
+          // c.NUMBER = 5;  // 에러
+          System.out.println(c.KIND);                                    // HEART
+          System.out.println(c.NUMBER);                                  // 10
+          System.out.println(c);  // System.out.println(c.toString());   // HEART 10
+        }
+      }
+      ```
+  + abstract - 추상의, 미완성의
+    - abstract는 '미완성'의 의미를 가지고 있다
+    - <table style="height: 153px; margin-left: auto; margin-right: auto;" width="583" cellspacing="3">
+      <tbody>
+      <tr style="height: 23px;">
+      <td style="width: 194px; height: 23px;">제어자</td>
+      <td style="width: 194px; height: 23px;">대상</td>
+      <td style="width: 194px; height: 23px;">의미</td>
+      </tr>
+      <tr style="height: 43px;">
+      <td style="width: 194px; height: 255px;" rowspan="2">abstract</td>
+      <td style="width: 194px; height: 129px;">클래스</td>
+      <td style="width: 194px; height: 43px;">
+      <p>클래스 내에 추상 메서드가 선언되어 있음을 의미한다.</p>
+      </td>
+      </tr>
+      <tr style="height: 63px;">
+      <td style="width: 194px; height: 126px;">메서드</td>
+      <td style="width: 194px; height: 63px;">선언부만 작성하고 구현부는 작성하지 않은 추상 메서드임을 알린다.</td>
+      </tr>
+      </tbody>
+      </table>
+    - ???
+  + 접근 제어자(access modifier)
+    - 멤버 또는 클래스에 사용되어, 외부에서 접근하지 못하도록 제한하는 역할을 한다
+    - |제어자|범위|
+      |--|--|
+      |private|같은 클래스 내에서만 접근이 가능하다|
+      |default|같은 패키지 내에서만 접근이 가능하다|
+      |protected|같은 패키지 내에서, 그리고 다른 패키지의 자손클래스에서 접근이 가능하다|
+      |public|접근 제한이 전혀 없다|
+    - 범위가 넓은 순으로 나열
+      * public > protected > (default) > private
+    - 접근 제어자를 사용하는 이유
+      * 외부로부터 데이터를 보호하기 위해서
+      * 외부에는 불필요한, 내부적으로만 사용되는 부분을 감추기 위해서
+  + 제어자(modifier)의 조합
+    - |대상|사용가능한 제어자|
+      |--|--|
+      |클래스|public, (default), final, abstract|
+      |메서드|모든 접근 제어자, final, abstract, static|
+      |멤버변수|모든 접근 제어자, final, static|
+      |지역변수|final|
+    - 주의사항
+      * 메서드에 static과 abstract를 함께 사용할 수 없다
+        >static메서드는 몸통이 있는 메서드에만 사용할 수 있기 때문이다
+      * 클래스에 abstract와 final을 동시에 사용할 수 없다
+        >클래스에 사용되는 final은 클래스를 확장할 수 없다는 의미이고 abstract는 상속을 통해서 안성되어야 한다는 의미이므로 서로 모순된다 
+      * abstract메서드의 접근 제어자가 private일 수 없다
+        >abstract메서드는 자손클래스에서 구현해주어야 하는데 접근 제어자가 private이면, 자손클래스에서 접근할 수 없기 때문이다
+      * 메서드에 private와 final을 같이 사용할 필요는 없다
+        >접근 제어자가 private인 메서드는 오버라이딩될 수 없기 때문이다. 이 둘 중 하나만 사용해도 의미가 충분하다
